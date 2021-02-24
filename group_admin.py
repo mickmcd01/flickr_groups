@@ -1,4 +1,5 @@
 import argparse
+import sys
 import flickrapi
 import webbrowser
 import json
@@ -6,7 +7,7 @@ from settings import flickr_key, flickr_secret
 
 
 def authenticate():
-    print('authenticatei...')
+    print('Authenticate...')
 
     # Only do this if we don't have a valid token already
     if not flickr.token_valid(perms='read'):
@@ -27,7 +28,7 @@ def authenticate():
         flickr.get_access_token(verifier)
 
 def display_user_photos(group, user):
-    print('Step 2: use Flickr')
+    print('Get user info and display photos')
     #info = flickr.photos.getInfo(photo_id='7658567128',  format='json')
     #info = json.loads(info.decode('utf-8'))
     #print(info)
@@ -54,6 +55,9 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--group", help="the group name")
 parser.add_argument("--user", help="the user name")
 args = parser.parse_args()
+
+if args.group == None or args.user == None:
+    sys.exit('Must enter --group and --user')
 
 flickr = flickrapi.FlickrAPI(flickr_key, flickr_secret)
 
