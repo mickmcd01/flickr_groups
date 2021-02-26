@@ -9,7 +9,11 @@ Count the photos in the group for a user. This requires the NSID for the group:
 
 python count_user_photos.py --group='group-nsid' --user='user-name'
 
-These scripts use flickrapi:
+Find the NSID for a group:
+
+python find_group_nsid.py --text='winter landscapes'
+
+These scripts use flickrapi. To install it:
 
 pip install flickrapi
 
