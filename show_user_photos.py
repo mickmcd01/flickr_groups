@@ -3,7 +3,7 @@ import sys
 import flickrapi
 import webbrowser
 import json
-from auth import authenticate
+from flickr_utils import authenticate
 
 
 def display_user_photos(group, user):

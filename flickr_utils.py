@@ -1,5 +1,6 @@
 import flickrapi
 import webbrowser
+import json
 from settings import flickr_key, flickr_secret
 
 
@@ -27,3 +28,21 @@ def authenticate():
         flickr.get_access_token(verifier)
 
     return flickr
+
+def get_nsid_for_group(flickr, group_name):
+    more = True
+    page = 1
+    while more is True:
+        info = flickr.groups.search(text=group_name, per_page=100, page=page, format='json')
+        info = json.loads(info.decode('utf-8'))
+        count = len(info['groups']['group'])
+        if count < 100:
+            more = False
+        else:
+            page += 1
+        for item in info['groups']['group']:
+            if item['name'] == group_name:
+                return item
+    return None
+
+
